@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Speech Recogniztion API</title>
+    
+        <script type="text/javascript">
+            //your javascript code
+           // alert('Hello js');
+           
+       
+
+            function transcribe(text)
+            {
+                console.log(text);
+            }
+
+
+           // if (document.createElement("input").webkitSpeech === undefined) 
+           // {
+             //   alert("Speech input is not supported in your browser.");
+          //  }
+        </script> 
+      
+        
+    </head>
+    
+    <body>
+        
+        <textarea id="textarea" rows=10 cols=80></textarea>
+        <button id="button" onclick="toggleStartStop()"></button>
+        
+        <script>
+            var recognizing, recognition, button;
+
+            window.onload = function () {
+            recognition = new webkitSpeechRecognition();
+            button = document.getElementById("button");
+            recognition.continuous = true;
+            reset();
+            recognition.onend = reset;
+
+            recognition.onresult = function (event) {
+                for (var i = resultIndex; i < event.results.length; ++i) {
+                    if (event.results.final) {
+                        textarea.value += event.results[i][0].transcript;
+                    }
+                }
+            }
+        }
+
+            function reset() {
+                recognizing = false;
+                button.innerHTML = "Click to Speak";
+            }
+
+            function toggleStartStop() {
+            if (recognizing) {
+                recognition.stop();
+                reset();
+            } else {
+                recognition.start();
+                recognizing = true;
+                button.innerHTML = "Click to Stop";
+            }
+        }
+        </script>
+       
+           
+        </body>
+    </html>
+            
+        
+        
+       
+        
+  
+
